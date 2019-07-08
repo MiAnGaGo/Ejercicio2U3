@@ -3,24 +3,11 @@ const path = require('path');
 const status = require('http-status');
 const jwt = require('jsonwebtoken');
 const _config = require('../_config');
-const csv = require('csvtojson');
+
 let _user;
 
 const csvFilePath='F:\\AplicacionesEmpresariales\\U3\\ejercicio01\\controllers\\Usuarios.csv'
-
-const createUser = (req, res) => {
-    const user = req.body;
-
-    _user.create(user)
-        .then((data)=> {
-            res.status(200);
-            res.json({msg:"Usuario creado correctamente", data: data});
-        })
-        .catch((err)=> {
-            res.status(400);
-            res.json({msg:"Error!!!!", err:err});
-        })
-}
+const csv = require('csvtojson');
 
 const insertarUser = async (req, res) => {
     csv()
@@ -43,6 +30,19 @@ const insertarUser = async (req, res) => {
     const jsonArray= await csv().fromFile(csvFilePath);
 }
 
+const createUser = (req, res) => {
+    const user = req.body;
+
+    _user.create(user)
+        .then((data)=> {
+            res.status(200);
+            res.json({msg:"Usuario creado correctamente", data: data});
+        })
+        .catch((err)=> {
+            res.status(400);
+            res.json({msg:"Error!!!!", err:err});
+        })
+}
 
 const findAll = (req, res) => {
     _user.find()
